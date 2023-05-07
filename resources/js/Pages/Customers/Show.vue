@@ -3,11 +3,12 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, Link } from '@inertiajs/inertia-vue3';
 import { Inertia } from '@inertiajs/inertia';
 
+
 defineProps({
     customer: Object
 })
 
-const deleteItem = id => {
+const deleteCustomer = id => {
     Inertia.delete(route('customers.destroy', { customer: id }), {
         onBefore: () => confirm('本当に削除しますか？')
     })
@@ -59,12 +60,14 @@ const deleteItem = id => {
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- <div class="p-2 w-full">
-                                            <Link as="button" :href="route('customer.edit', { customer: customer.id })" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">編集する</Link>
+                                        <div class="flex gap-2 mr-0 ml-auto">
+                                            <div class="p-2 w-full">
+                                                <Link as="button" :href="route('customers.edit', { customer: customer.id })" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">編集する</Link>
+                                            </div>
+                                            <div class="p-2 w-full">
+                                                <button @click="deleteCustomer(customer.id)" class="flex mx-auto text-white bg-red-500 border-0 py-2 px-8 focus:outline-none hover:bg-red-600 rounded text-lg">削除する</button>
+                                            </div>
                                         </div>
-                                        <div class="mt-20 p-2 w-full">
-                                            <button @click="deleteItem(customer.id)" class="flex mx-auto text-white bg-red-500 border-0 py-2 px-8 focus:outline-none hover:bg-red-600 rounded text-lg">削除する</button>
-                                        </div> -->
                                         
                                     </div>
                                 </div>

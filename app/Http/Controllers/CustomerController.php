@@ -73,7 +73,9 @@ class CustomerController extends Controller
      */
     public function edit(Customer $customer)
     {
-        //
+        return Inertia::render('Customers/Edit', [
+            'customer' => $customer
+        ]);
     }
 
     /**
@@ -85,7 +87,16 @@ class CustomerController extends Controller
      */
     public function update(UpdateCustomerRequest $request, Customer $customer)
     {
-        //
+        $customer->name = $request->name;
+        $customer->postcode = $request->postcode;
+        $customer->address = $request->address;
+        $customer->save();
+
+        return to_route('customers.index')
+            ->with([
+                'message' => '更新しました。',
+                'status' => 'success'
+            ]);
     }
 
     /**
@@ -96,6 +107,12 @@ class CustomerController extends Controller
      */
     public function destroy(Customer $customer)
     {
-        //
+        $customer->delete();
+
+        return to_route('customers.index')
+            ->with([
+                'message' => '削除しました。',
+                'status' => 'danger'
+            ]);
     }
 }
